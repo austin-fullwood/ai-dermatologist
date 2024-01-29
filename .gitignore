@@ -1,2 +1,8 @@
-skin-cancer-mnist-ham10000/
+# Ignore python cache
 __pycache__/
+
+# Ignore dataset
+skin-cancer-mnist-ham10000/
+
+# Ignore saved models
+saved_models/

@@ -18,3 +18,27 @@ A Convolutional Neural Network built with TensorFlow takes in an image file, pre
 The CNN is trained on the [Skin MNIST dataset](https://github.com/bundasmanu/skin_mnist) with 10015 different images of different skin lesions.
 
 ## Getting Started
+
+Python 3.11.x is required for this project. Please download it [here](https://www.python.org/downloads/).
+
+Download dependencies:
+```
+pip install -r requirements.txt
+```
+## Training Model
+
+Run the training script:
+```
+python src/train.py
+```
+
+This will download the dataset (requires [Kaggle account](https://www.kaggle.com/docs/api#:~:text=is%20%24PYTHON_HOME/Scripts.-,Authentication,-In%20order%20to)), train a CNN, and save the model to the `saved_models` directory.
+
+## Run Model
+
+Run the prediction script:
+```
+python src/run.py <image_path>
+```
+
+This will load the lastest trained model and output a prediction.

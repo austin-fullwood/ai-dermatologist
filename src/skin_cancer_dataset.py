@@ -13,7 +13,8 @@ class SkinCancerDataset:
     DATASET_PATH = DATASET_DIRECTORY / "skin-cancer-mnist-ham10000"
     KAGGLE_URL = "https://www.kaggle.com/kmader/skin-cancer-mnist-ham10000"
 
-    """ Downloads the dataset and creates a hash table for image_id to class label.
+    """
+    Downloads the dataset and creates a hash table for image_id to class label.
 
     Args:
         download (bool): Whether to download the dataset if it doesn't exist.
@@ -48,7 +49,8 @@ class SkinCancerDataset:
             default_value=tf.constant(-1)
         )
 
-    """ Gives the hash that maps class labels to their indices.
+    """
+    Gives the hash that maps class labels to their indices.
 
     Returns:
         dict[str, int]: The hash that maps class labels to their indices.
@@ -56,7 +58,8 @@ class SkinCancerDataset:
     def class_labels(self) -> dict[str, int]:
         return self.class_labels
 
-    """ Gives the number of classes in the dataset.
+    """
+    Gives the number of classes in the dataset.
 
     Returns:
         int: The number of classes in the dataset.
@@ -64,8 +67,9 @@ class SkinCancerDataset:
     def num_of_classes(self) -> int:
         return len(self.class_labels)
 
-    """ Creates and gives a TensorFlow dataset containing the Skin Cancer MNIST
-        image paths and a mapping method.
+    """
+    Creates and gives a TensorFlow dataset containing the Skin Cancer MNIST
+    image paths and a mapping method.
 
     Returns:
         tf.data.Dataset: Skin Cancer MNIST dataset.
@@ -81,7 +85,8 @@ class SkinCancerDataset:
         )
         return dataset
 
-    """ Processes the image file path and gives the image and its class label.
+    """
+    Processes the image file path and gives the image and its class label.
 
     Args:
         file_path (str): The image file path.
@@ -101,7 +106,9 @@ class SkinCancerDataset:
 
         return image, label
 
-    """ Downloads the dataset from Kaggle and extracts it."""
+    """
+    Downloads the dataset from Kaggle and extracts it.
+    """
     def _download(self) -> None:
         if os.path.exists(self.DATASET_PATH):
             print("Dataset already downloaded. Redownload? (y/n)")

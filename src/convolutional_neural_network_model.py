@@ -4,7 +4,8 @@ import tensorflow as tf
 Creates a TensorFlow convolutional neural network model.
 """
 class ConvolutionalNeuralNetworkModel(tf.keras.Model):
-    """ Initializes the CNN layers.
+    """
+    Initializes the CNN layers.
 
     Args:
         num_of_classes (int): The number of classes in the dataset.
@@ -34,9 +35,10 @@ class ConvolutionalNeuralNetworkModel(tf.keras.Model):
         self.flatten = tf.keras.layers.Flatten()
         self.dense1 = tf.keras.layers.Dense(256, activation="relu")
         self.dropout = tf.keras.layers.Dropout(0.5)
-        self.dense2 = tf.keras.layers.Dense(self.num_of_classes)
+        self.dense2 = tf.keras.layers.Dense(self.num_of_classes, activation="softmax")
 
-    """ Performs a forward pass on the model.
+    """
+    Performs a forward pass on the model.
 
     Args:
         inputs (tf.Tensor): The input data.
