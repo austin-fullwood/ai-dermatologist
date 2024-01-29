@@ -22,34 +22,38 @@ class Train:
     Initializes the dataset and the model.
     """
     def __init__(self) -> None:
+        self.dataset = SkinCancerDataset(download=True)
         self.reset()
 
     """
     Resets the dataset and the model.
     """
     def reset(self) -> None:
-        skin_cancer_dataset = SkinCancerDataset(download=False)
-        dataset = skin_cancer_dataset.get_dataset()
+        self._set_dataset()
+        self._set_model()
 
+    """
+    Set the dataset.
+    """
+    def _set_dataset(self) -> None:
+        ds = self.dataset.get_dataset()
         # Split dataset into training and validation
-        total_size = len(list(dataset))
+        total_size = len(list(ds))
         train_size = int(0.8 * total_size)
 
-        train_dataset = dataset.take(train_size)
-        val_dataset = dataset.skip(train_size)
+        train_dataset = ds.take(train_size)
+        val_dataset = ds.skip(train_size)
 
         # Shuffle and batch datasets
         self.train_dataset = train_dataset.shuffle(buffer_size=1000).batch(self.BATCH_SIZE)
         self.val_dataset = val_dataset.batch(self.BATCH_SIZE)
-
-        self._set_model()
 
     """
     Sets the model.
     """
     def _set_model(self) -> None:
         self.model = ConvolutionalNeuralNetworkModel(
-            num_of_classes=self.skin_cancer_dataset.num_of_classes(),
+            num_of_classes=self.dataset.num_of_classes(),
             image_size=self.IMAGE_SIZE,
             rescaling=self.RESCALING
         )
