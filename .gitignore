@@ -1,3 +1,6 @@
+# Ignore hidden files
+.*
+
 # Ignore python cache
 __pycache__/
 

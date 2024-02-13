@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import shutil
+from typing import Tuple
 import tensorflow as tf
 import opendatasets as od
 import pandas as pd
@@ -83,6 +84,8 @@ class SkinCancerDataset:
             lambda x: self._process_path(x),
             num_parallel_calls=tf.data.AUTOTUNE
         )
+        dataset_length = tf.data.experimental.cardinality(dataset).numpy()
+        dataset = dataset.shuffle(buffer_size=dataset_length)
         return dataset
 
     """
@@ -93,7 +96,7 @@ class SkinCancerDataset:
     Returns:
         (tf.Tensor, tf.Tensor): The image and its class label.
     """
-    def _process_path(self, file_path: tf.Tensor) -> (tf.Tensor, tf.Tensor):
+    def _process_path(self, file_path: tf.Tensor) -> Tuple[tf.Tensor, tf.Tensor]:
         # Get the file stem
         parts = tf.strings.split(file_path, os.path.sep)[-1]
         stem = tf.strings.split(parts, '.')[0]

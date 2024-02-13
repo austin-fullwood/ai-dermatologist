@@ -19,7 +19,6 @@ class ConvolutionalNeuralNetworkModel(tf.keras.Model):
             rescaling: float=1./255
         ) -> None:
         super(ConvolutionalNeuralNetworkModel, self).__init__()
-        self.num_of_classes = num_of_classes
 
         # Create model layers
         self.resizing = tf.keras.layers.Resizing(image_size[0], image_size[1])
@@ -35,7 +34,7 @@ class ConvolutionalNeuralNetworkModel(tf.keras.Model):
         self.flatten = tf.keras.layers.Flatten()
         self.dense1 = tf.keras.layers.Dense(256, activation="relu")
         self.dropout = tf.keras.layers.Dropout(0.5)
-        self.dense2 = tf.keras.layers.Dense(self.num_of_classes, activation="softmax")
+        self.dense2 = tf.keras.layers.Dense(num_of_classes, activation="softmax")
 
     """
     Performs a forward pass on the model.

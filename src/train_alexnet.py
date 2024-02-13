@@ -2,9 +2,9 @@
 
 import datetime
 from pathlib import Path
+from alex_net_model import AlexNetModel
 import tensorflow as tf
 
-from convolutional_neural_network_model import ConvolutionalNeuralNetworkModel
 from skin_cancer_dataset import SkinCancerDataset
 from typing import Tuple
 
@@ -16,10 +16,10 @@ Trains a CNN model on the Skin Cancer MNIST: HAM10000 dataset.
 """
 class Train:
     # Parameters
-    IMAGE_SIZE: tuple[int, int] = (28, 28)
+    IMAGE_SIZE: tuple[int, int] = (227, 227)
     RESCALING: float = 1./255
     BATCH_SIZE: int = 32
-    EPOCHS: int = 10
+    EPOCHS: int = 30
     MODEL_DIRECTORY = Path(__file__).resolve().parent / 'saved_models'
 
     """
@@ -56,13 +56,13 @@ class Train:
     Sets the model.
     """
     def _set_model(self) -> None:
-        self.model = ConvolutionalNeuralNetworkModel(
+        self.model = AlexNetModel(
             num_of_classes=self.dataset.num_of_classes(),
             image_size=self.IMAGE_SIZE,
             rescaling=self.RESCALING
         )
         self.model.compile(
-            optimizer='adam',
+            optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
             loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=['accuracy']
         )
@@ -71,11 +71,7 @@ class Train:
     Trains the model.
     """
     def train(self) -> None:
-        self.model.fit(
-            self.train_dataset,
-            epochs=self.EPOCHS,
-            validation_data=self.val_dataset
-        )
+        self.model.fit(self.train_dataset, epochs=self.EPOCHS, validation_data=self.val_dataset)
 
     """
     Evaluates the model.
